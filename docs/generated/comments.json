@@ -5178,6 +5178,104 @@
       },
       {
         "subheads": [],
+        "description": "Get the monitoring type of a specified source.",
+        "param": "{String} `source` Source name.",
+        "return": "{String} `monitoring_type` Monitoring type of the source. One of \"none\", \"monitor_only\", \"monitor_and_output\"",
+        "api": "requests",
+        "name": "GetMonitoringType",
+        "category": "sources",
+        "since": "4.0.0",
+        "returns": [
+          {
+            "type": "String",
+            "name": "monitoring_type",
+            "description": "Monitoring type of the source. One of \"none\", \"monitor_only\", \"monitor_and_output\""
+          }
+        ],
+        "params": [
+          {
+            "type": "String",
+            "name": "source",
+            "description": "Source name."
+          }
+        ],
+        "names": [
+          {
+            "name": "",
+            "description": "GetMonitoringType"
+          }
+        ],
+        "categories": [
+          {
+            "name": "",
+            "description": "sources"
+          }
+        ],
+        "sinces": [
+          {
+            "name": "",
+            "description": "4.0.0"
+          }
+        ],
+        "heading": {
+          "level": 2,
+          "text": "GetMonitoringType"
+        },
+        "lead": "",
+        "type": "class",
+        "examples": []
+      },
+      {
+        "subheads": [],
+        "description": "Set the monitoring type of a specified source.",
+        "param": [
+          "{String} `source` Source name.",
+          "{String} `monitoring_type` Desired monitoring type.  One of \"none\", \"monitor_only\", \"monitor_and_output\""
+        ],
+        "api": "requests",
+        "name": "SetMonitoringType",
+        "category": "sources",
+        "since": "4.0.0",
+        "params": [
+          {
+            "type": "String",
+            "name": "source",
+            "description": "Source name."
+          },
+          {
+            "type": "String",
+            "name": "monitoring_type",
+            "description": "Desired monitoring type.  One of \"none\", \"monitor_only\", \"monitor_and_output\""
+          }
+        ],
+        "names": [
+          {
+            "name": "",
+            "description": "SetMonitoringType"
+          }
+        ],
+        "categories": [
+          {
+            "name": "",
+            "description": "sources"
+          }
+        ],
+        "sinces": [
+          {
+            "name": "",
+            "description": "4.0.0"
+          }
+        ],
+        "heading": {
+          "level": 2,
+          "text": "SetMonitoringType"
+        },
+        "lead": "",
+        "type": "class",
+        "examples": []
+      },
+      {
+        "subheads": [],
         "description": "Get the mute status of a specified source.",
         "param": "{String} `source` Source name.",
         "return": [

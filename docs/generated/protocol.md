@@ -156,6 +156,8 @@ You can also refer to any of the client libraries listed on the [README](README.
     + [GetSourceTypesList](#getsourcetypeslist)
     + [GetVolume](#getvolume)
     + [SetVolume](#setvolume)
+    + [GetMonitoringType](#getmonitoringtype)
+    + [SetMonitoringType](#setmonitoringtype)
     + [GetMute](#getmute)
     + [SetMute](#setmute)
     + [ToggleMute](#togglemute)
@@ -2103,6 +2105,50 @@ Set the volume of the specified source. Default request format uses mul, NOT SLI
 | `source` | _String_ | Source name. |
 | `volume` | _double_ | Desired volume. Must be between `0.0` and `1.0` for mul, and under 0.0 for dB. Note: OBS will interpret dB values under -100.0 as Inf. |
 | `useDecibel` | _boolean (optional)_ | Interperet `volume` data as decibels instead of amplitude/mul. |
+
+
+**Response Items:**
+
+_No additional response items._
+
+---
+
+### GetMonitoringType
+
+
+- Added in v4.0.0
+
+Get the monitoring type of a specified source.
+
+**Request Fields:**
+
+| Name | Type  | Description |
+| ---- | :---: | ------------|
+| `source` | _String_ | Source name. |
+
+
+**Response Items:**
+
+| Name | Type  | Description |
+| ---- | :---: | ------------|
+| `monitoring_type` | _String_ | Monitoring type of the source. One of "none", "monitor_only", "monitor_and_output" |
+
+
+---
+
+### SetMonitoringType
+
+
+- Added in v4.0.0
+
+Set the monitoring type of a specified source.
+
+**Request Fields:**
+
+| Name | Type  | Description |
+| ---- | :---: | ------------|
+| `source` | _String_ | Source name. |
+| `monitoring_type` | _String_ | Desired monitoring type.  One of "none", "monitor_only", "monitor_and_output" |
 
 
 **Response Items:**

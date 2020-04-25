@@ -316,6 +316,96 @@ RpcResponse WSRequestHandler::SetVolume(const RpcRequest& request)
 }
 
 /**
+* Get the monitoring type of a specified source.
+*
+* @param {String} `source` Source name.
+*
+* @return {String} `monitoring_type` Monitoring type of the source. One of "none", "monitor_only", "monitor_and_output"
+*
+* @api requests
+* @name GetMonitoringType
+* @category sources
+* @since 4.0.0
+*/
+RpcResponse WSRequestHandler::GetMonitoringType(const RpcRequest& request)
+{
+	if (!request.hasField("source")) {
+		return request.failed("missing request parameters");
+	}
+
+	QString sourceName = obs_data_get_string(request.parameters(), "source");
+	if (sourceName.isEmpty()) {
+		return request.failed("invalid request parameters");
+	}
+
+	OBSSourceAutoRelease source = obs_get_source_by_name(sourceName.toUtf8());
+	if (!source) {
+		return request.failed("specified source doesn't exist");
+	}
+
+	OBSDataAutoRelease response = obs_data_create();
+	obs_data_set_string(response, "name", obs_source_get_name(source));
+
+	switch (obs_source_get_monitoring_type(source)) {
+		case OBS_MONITORING_TYPE_MONITOR_ONLY:
+			obs_data_set_string(response, "monitoring_type", "monitor_only");
+			break;
+
+		case OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT:
+			obs_data_set_string(response, "monitoring_type", "monitor_and_output");
+			break;
+
+		case OBS_MONITORING_TYPE_NONE:
+		default:
+			obs_data_set_string(response, "monitoring_type", "none");
+	}
+
+	return request.success(response);
+}
+
+/**
+ * Set the monitoring type of a specified source.
+ *
+ * @param {String} `source` Source name.
+ * @param {String} `monitoring_type` Desired monitoring type.  One of "none", "monitor_only", "monitor_and_output"
+ *
+ * @api requests
+ * @name SetMonitoringType
+ * @category sources
+ * @since 4.0.0
+ */
+RpcResponse WSRequestHandler::SetMonitoringType(const RpcRequest& request)
+{
+	if (!request.hasField("source") || !request.hasField("monitoring_type")) {
+		return request.failed("missing request parameters");
+	}
+
+	QString sourceName = obs_data_get_string(request.parameters(), "source");
+	QString monitoringType = obs_data_get_string(request.parameters(), "monitoring_type");
+
+	if (sourceName.isEmpty() || monitoringType.isEmpty()) {
+		return request.failed("invalid request parameters");
+	}
+
+	OBSSourceAutoRelease source = obs_get_source_by_name(sourceName.toUtf8());
+	if (!source) {
+		return request.failed("specified source doesn't exist");
+	}
+
+	if (monitoringType == "none") {
+		obs_source_set_monitoring_type(source, OBS_MONITORING_TYPE_NONE);
+	} else if (monitoringType == "monitor_only") {
+		obs_source_set_monitoring_type(source, OBS_MONITORING_TYPE_MONITOR_ONLY);
+	} else if (monitoringType == "monitor_and_output") {
+		obs_source_set_monitoring_type(source, OBS_MONITORING_TYPE_MONITOR_AND_OUTPUT);
+	} else {
+		return request.failed("invalid request parameters");
+	}
+
+	return request.success();
+}
+
+/**
 * Get the mute status of a specified source.
 *
 * @param {String} `source` Source name.

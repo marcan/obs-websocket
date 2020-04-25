@@ -121,6 +121,8 @@ class WSRequestHandler {
 		RpcResponse CreateSource(const RpcRequest&);
 		RpcResponse SetVolume(const RpcRequest&);
 		RpcResponse GetVolume(const RpcRequest&);
+		RpcResponse SetMonitoringType(const RpcRequest&);
+		RpcResponse GetMonitoringType(const RpcRequest&);
 		RpcResponse ToggleMute(const RpcRequest&);
 		RpcResponse SetMute(const RpcRequest&);
 		RpcResponse GetMute(const RpcRequest&);
